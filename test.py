@@ -125,13 +125,13 @@ Contact:    slysly759@gmail.com
 
 
 
-import pymysql
-data=[(' 微醺之美', ' MzA3ODA5NjgyOA==', '点击这里关注我们&nbsp;&nbsp;&nbsp;↓↓↓↓↓', '【微醺之美】id:weixunzhimei主讲烈酒鸡尾酒和葡萄酒，偶尔讲讲酒吧餐厅。深', 'http://mp.weixin.qq.com/s?__biz=MzA3ODA5NjgyOA==&mid=200113055&idx=1&sn=0581952a4acba0c54fcafe3d20cbeedc', '2014-03-28'),
-(' 微醺之美', ' MzA3ODA5NjgyOA==', '闪购：如果要和父亲喝葡萄酒，我会选择这一款', '中秋选酒第三弹，适合和家人同享的葡萄酒。', 'http://mp.weixin.qq.com/s?__biz=MzA3ODA5NjgyOA==&mid=2650764592&idx=1&sn=98b9a2843c8fd908c57ab688c143518d&scene=4', '2016-08-24')]
-db = pymysql.connect("localhost","root","070801382","world",port=3308,charset='utf8')
-cursor = db.cursor()
-# cursor.executemany("INSERT INTO wechet_db VALUES (:nick_name,:app_uni,:msg_title,:msg_desc,:msg_url,to_date(:publish_time,'yyyy-mm-dd'))",data)
-sql="INSERT INTO wechet_db(nick_name,app_uni,msg_title,msg_desc,msg_url,publish_time) VALUES(%s,%s,%s,%s,%s,%s)"
-cursor.executemany(sql,data)
-db.commit()
-print('success')
+# import pymysql
+# data=[(' 微醺之美', ' MzA3ODA5NjgyOA==', '点击这里关注我们&nbsp;&nbsp;&nbsp;↓↓↓↓↓', '【微醺之美】id:weixunzhimei主讲烈酒鸡尾酒和葡萄酒，偶尔讲讲酒吧餐厅。深', 'http://mp.weixin.qq.com/s?__biz=MzA3ODA5NjgyOA==&mid=200113055&idx=1&sn=0581952a4acba0c54fcafe3d20cbeedc', '2014-03-28'),
+# (' 微醺之美', ' MzA3ODA5NjgyOA==', '闪购：如果要和父亲喝葡萄酒，我会选择这一款', '中秋选酒第三弹，适合和家人同享的葡萄酒。', 'http://mp.weixin.qq.com/s?__biz=MzA3ODA5NjgyOA==&mid=2650764592&idx=1&sn=98b9a2843c8fd908c57ab688c143518d&scene=4', '2016-08-24')]
+# db = pymysql.connect("localhost","root","070801382","world",port=3308,charset='utf8')
+# cursor = db.cursor()
+# # cursor.executemany("INSERT INTO wechet_db VALUES (:nick_name,:app_uni,:msg_title,:msg_desc,:msg_url,to_date(:publish_time,'yyyy-mm-dd'))",data)
+# sql="INSERT INTO wechet_db(nick_name,app_uni,msg_title,msg_desc,msg_url,publish_time) VALUES(%s,%s,%s,%s,%s,%s)"
+# cursor.executemany(sql,data)
+# db.commit()
+# print('success')
