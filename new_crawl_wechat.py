@@ -2,7 +2,7 @@
 # 2016/9/7 13:47
 """
 -------------------------------------------------------------------------------
-Function:
+Function:   using for fucking wechat
 Version:    1.0
 Author:     SLY
 Contact:    slysly759@gmail.com 
@@ -13,7 +13,7 @@ Contact:    slysly759@gmail.com
 from multiprocessing import Pool as ThreadPool
 import string,re,ftplib,time
 import requests,pymysql
-class fuck_wechet(object):
+class fuck_wechat(object):
     def __init__(self):
         self.time=time.strftime("%m_%d_%H_%M_%S", time.localtime())
         self.ID=1
@@ -114,7 +114,7 @@ class fuck_wechet(object):
 if __name__=="__main__":
     start_time=time.time()
     pool = ThreadPool(8)
-    wtf=fuck_wechet()
+    wtf=fuck_wechat()
     # wtf.get_data_from_ftp
     """
     不好意思这破玩儿还没弄好先ban这个函数
