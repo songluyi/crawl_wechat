@@ -94,6 +94,8 @@ class fuck_wechat(object):
             return (nick_name,app_uni,msg_title,msg_desc,url,publish_time)
         except TimeoutError:
             return None
+        except ConnectionError:
+            return None
 
 
     def get_max_id(self):
@@ -131,6 +133,6 @@ if __name__=="__main__":
     cost = end_time - start_time #time in second
     print('耗时为：')
     print(cost)
-    wtf.insert_db(results)
+    wtf.insert_db(results)#如果你没有设置数据库，可以考虑注释掉这一段。
     print('插入数据库成功')
 
