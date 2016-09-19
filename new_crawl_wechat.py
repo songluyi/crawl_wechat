@@ -3,13 +3,13 @@
 """
 -------------------------------------------------------------------------------
 Function:   using for fucking wechat
-Version:    1.0
+Version:    1.1
 Author:     SLY
 Contact:    slysly759@gmail.com 
  
 -------------------------------------------------------------------------------
 """
-
+import multiprocessing
 from multiprocessing import Pool as ThreadPool
 import string,re,ftplib,time
 import requests,pymysql
@@ -47,6 +47,9 @@ class fuck_wechat(object):
         msglist=[]
         start_row=[]
         end_row=[]
+#这个continue的list是为了解决微信后来传输json的历史文章页。
+        continue_start_row=[]
+        continue_end_row=[]
         f=open('New_Response.txt','r',encoding='utf-8',errors='ignore')
         file_data=f.readlines()
         # all_row=len(file_data)
@@ -54,24 +57,41 @@ class fuck_wechat(object):
         count=0
         for need_data in file_data:
             count+=1
-            if 'msgList' in str(need_data):
+            if 'msgList' in str(need_data) :
                 start_row.append(count)
-                need_data=need_data.replace('\t','').replace(' ','').replace('&quot;','').replace('&nbsp;','').replace('\\\\','')\
-                .replace('amp;amp;','').replace(',','')
-                # print(need_data)
-                msglist.append(need_data)
-            if 'if(!!window.__initCatch)' in str(need_data):
+            if '{"ret":0,' in str(need_data):
+                continue_start_row.append(count)
+            if 'if(!!window.__initCatch)' in str(need_data)  :
                 end_row.append(count)
+            if 'csp_nonce_str' in str(need_data):
+                continue_end_row.append(count)
         print(start_row)
         print(end_row)
+        print(continue_start_row)
+        print(continue_end_row)
         all_article=[]
-        for i in range(len(start_row)):
-            row_article_list=''.join(file_data[start_row[i-1]:end_row[i]])
-            row_article_list=row_article_list.replace('\t','').replace(' ','').replace('&quot;','').replace('&nbsp;','').replace('\\\\','')\
-                .replace('amp;amp;','').replace(',','')
-            result=re.findall("http://mp.weixin.qq.com/s(.*?)#",row_article_list)
-            s=list(map(lambda x:'http://mp.weixin.qq.com/s'+x,result))
-            all_article.extend(s)
+        if start_row:
+            for i in range(len(start_row)):
+                row_article_list=''.join(file_data[start_row[i-1]:end_row[i]])
+                row_article_list=row_article_list.replace('\t','').replace(' ','').replace('&quot;','').replace('&nbsp;','').replace('\\\\','')\
+                    .replace('amp;amp;','').replace(',','')
+                print(row_article_list)
+                result=re.findall("http://mp.weixin.qq.com/s(.*?)#",row_article_list)
+                s=list(map(lambda x:'http://mp.weixin.qq.com/s'+x,result))
+                all_article.extend(s)
+        else:
+            print('error：response里面没有历史文章页信息，请检查！')
+
+        if continue_end_row:
+            for j in range(len(continue_start_row)):
+                row_article_list=''.join(file_data[continue_start_row[j]:continue_end_row[j]])
+                row_article_list=row_article_list.replace('\\','').replace('amp;','')
+                print(row_article_list)
+                result=re.findall("http://mp.weixin.qq.com/s(.*?)#",row_article_list)
+                s=list(map(lambda x:'http://mp.weixin.qq.com/s'+x,result))
+                all_article.extend(s)
+        else:
+            print('info：response中 没有后续文章页，如果没有模拟点击过，请忽略！')
         return all_article
 
     def start_request(self,url):
@@ -115,11 +135,11 @@ class fuck_wechat(object):
         db.commit()
 if __name__=="__main__":
     start_time=time.time()
-    pool = ThreadPool(8)
+    pool = ThreadPool(multiprocessing.cpu_count()*2)
     wtf=fuck_wechat()
     # wtf.get_data_from_ftp
     """
-    不好意思这破玩儿还没弄好先ban这个函数
+    如果你的点击fiddler生成的response在ftp可以用该方法传输到本目录下
     """
     wtf.change_txt()
     article_lists=wtf.return_all_article()
@@ -129,6 +149,7 @@ if __name__=="__main__":
     pool.close()
     pool.join()
     print(results)
+    print(len(results))
     end_time=time.time()
     cost = end_time - start_time #time in second
     print('耗时为：')
