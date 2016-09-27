@@ -19,7 +19,7 @@
 3. 我该如何使用本程序，能达到我的效果
 **答：本程序仅作一个demo，运行new_crawl_wechat他会从response.txt转换为new_response.txt 这个response怎么来的呢是你fiddler截获
 报文来的，生成的一个txt文本。至于fiddler怎么设置可以截获微信报文 怎么样修改rules可以生成你想要的response.txt尽在我的博客**
-http://www.songluyi.com/archives/696 
+[fiddler教程地址](http://www.songluyi.com/%E5%88%A9%E7%94%A8fiddler-%E6%88%AA%E8%8E%B7%E5%BE%AE%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE-%EF%BC%88%E6%96%B9%E4%BE%BF%E6%8A%93%E5%8F%96%E5%85%AC%E4%BC%97%E5%8F%B7%E4%BF%A1%E6%81%AF%EF%BC%89/)
 4. 我觉得你的思路很傻比，完全没有Python精神，我该如何找到你的联系方式喷你呢？
 **答：见左边博客或者gmail谢谢 (请带上自己牛逼的方法和代码哦）**
 
