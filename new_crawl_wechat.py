@@ -29,20 +29,21 @@ class fuck_wechat(object):
         f.close()
         ftp.close()
     def change_txt(self):
-        f=open('Response.txt','r',encoding='gbk',errors='ignore')
-        data=f.readlines()
-        new_data=[]
-        file_write_new=open('New_Response.txt','wb')
-        for i in data:
-            i=str(i).replace("b'",'').replace("'",'')
-            # i.replace('\x00','')
-            hope=''.join(list(filter(lambda x: x in string.printable, i)))
-            if hope.startswith('#')or not hope.split():
-                continue
-            file_write_new.write(bytes(hope,encoding='utf-8'))
-            # print(bytes(hope,encoding='utf-8'))
-        file_write_new.close()
-        f.close()
+        with open('Response.txt','r',encoding='gbk',errors='ignore') as f:
+         data=f.readlines()
+         new_data=[]
+         
+         with open('New_Response.txt','wb') as file_write_new:
+          for i in data:
+              i=str(i).replace("b'",'').replace("'",'')
+              # i.replace('\x00','')
+              hope=''.join(list(filter(lambda x: x in string.printable, i)))
+              if hope.startswith('#')or not hope.split():
+                  continue
+              file_write_new.write(bytes(hope,encoding='utf-8'))
+              # print(bytes(hope,encoding='utf-8'))
+          
+        
     def return_all_article(self):
         msglist=[]
         start_row=[]
